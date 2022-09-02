@@ -1,4 +1,4 @@
-.PHONY: test
+.PHONY: test test_over_docker
 
 test:
 	bats --formatter tap test/
