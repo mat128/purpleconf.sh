@@ -13,6 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Run check
-      run: make test_over_docker
+      run: make test
