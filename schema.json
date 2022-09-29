@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "purpleconf_machines_spec.json",
+  "title": "Purpleconf machines index specification",
+  "description": "A declaration of machines configuration",
+  "type": "object",
+  "properties": {
+    "machines": {
+      "id": "#/machines",
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9._-]+$": {
+          "$ref": "#/definitions/machine"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "machine": {
+      "id": "#/definitions/machine",
+      "type": "object",
+      "properties": {
+        "managed": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the machine should be managed or not."
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "application_server",
+              "backup_server"
+            ]
+          }
+        },
+        "network": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-zA-Z0-9._-]+$": {
+              "$ref": "#/definitions/network"
+            }
+          }
+        },
+        "monitoring": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "node_exporter"
+              ]
+            },
+            "tls_ca": {
+              "type": "string"
+            },
+            "tls_cert": {
+              "type": "string"
+            },
+            "tls_key": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "swap": {
+          "type": "object",
+          "properties": {
+            "size_mb": {
+              "type": "integer"
+            },
+            "path": {
+              "type": "string",
+              "default": "/swapfile"
+            }
+          },
+          "required": [
+            "size_mb"
+          ],
+          "additionalProperties": false
+        },
+        "credentials": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "username",
+            "password"
+          ]
+        },
+        "access_control": {
+          "type": "object",
+          "properties": {
+            "authorized_keys": {
+              "type": "string"
+            },
+            "authorized_keys_user": {
+              "type": "string"
+            },
+            "authorized_keys_additional": {
+              "type": "string"
+            },
+            "authorized_keys_file": {
+              "type": "string"
+            },
+            "service_accounts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "home": {
+                    "type": "string"
+                  },
+                  "authorized_keys": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "home"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "authorized_keys"
+          ],
+          "additionalProperties": false
+        },
+        "mounts": {
+          "patternProperties": {
+            "^[a-zA-Z0-9._-]+$": {
+              "$ref": "#/definitions/mount"
+            }
+          },
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "network": {
+      "id": "#/definitions/network",
+      "type": "object",
+      "properties": {
+        "ip": {
+          "type": "string"
+        },
+        "gateway": {
+          "type": "string"
+        },
+        "interface": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "dhcp"
+          ]
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "net":{
+                "type": "string",
+                "description": "CIDR"
+              },
+              "gateway":{
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "managed": {
+          "type": "boolean"
+        },
+        "nameservers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "mount": {
+      "id": "#/definitions/mount",
+      "type": "object",
+      "properties": {
+        "filesystem": {
+          "type": "string",
+          "default": "ext4",
+          "enum": [
+            "ext4",
+            "zfs"
+          ]
+        },
+        "encrypted": {
+          "type": "boolean"
+        },
+        "encryption_key": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "folders": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "mountpoint": {
+                "type": "string"
+              },
+              "compression": {
+                "type": "string"
+              },
+              "encryption": {
+                "type": "string"
+              },
+              "encryption_passphrase": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "name", "mountpoint"
+            ]
+          }
+        }
+      },
+      "mountpoint": {
+        "type": "string",
+        "default": "/mnt/external_storage/$NAME"
+      }
+    },
+    "additionalProperties": false
+  }
+}
