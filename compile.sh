@@ -20,6 +20,8 @@ echo "set -eu"
 $(dirname $0)/emitters/common_tools.sh
 
 $(dirname $0)/emitters/hostname.sh
+$(dirname $0)/emitters/system_packages.sh
+
 $(dirname $0)/emitters/swap.sh
 $(dirname $0)/emitters/ssh_authorized_keys.sh
 $(dirname $0)/emitters/volumes.sh

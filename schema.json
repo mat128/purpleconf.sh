@@ -148,7 +148,20 @@
           },
           "type": "object",
           "additionalProperties": false
+        },
+        "system": {
+          "type": "object",
+          "properties": {
+            "packages": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
         }
+
       },
       "additionalProperties": false
     },
