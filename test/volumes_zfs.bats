@@ -169,6 +169,6 @@ EOF
   assert_output_within_output_matching '/^# BEGIN: volumes_my_volume$/,/^# END: volumes_my_volume$/' '/halt_intervention_required <<"ZPOOL_INIT"/,/^ZPOOL_INIT/'<<EXPECTED
 my_volume does not appear to be a zpool.
 If you are initializing a new device, please create a zpool using the following command:
-  zpool create -o compression=lz4 -o atime=off my_volume /dev/sdy /dev/sdz
+  zpool create -O compression=lz4 -O atime=off my_volume /dev/sdy /dev/sdz
 EXPECTED
 }

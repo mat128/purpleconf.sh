@@ -19,7 +19,7 @@ __render_ZPOOL_INIT() {
   cat - <<EOM
 ${volume} does not appear to be a zpool.
 If you are initializing a new device, please create a zpool using the following command:
-  zpool create -o compression=lz4 -o atime=off ${volume} ${pool_members[@]}
+  zpool create -O compression=lz4 -O atime=off ${volume} ${pool_members[@]}
 EOM
 }
 
