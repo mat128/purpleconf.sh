@@ -157,11 +157,25 @@
               "items": {
                 "type": "string"
               }
+            },
+            "files": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "contents": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
             }
           },
           "additionalProperties": false
         }
-
       },
       "additionalProperties": false
     },
