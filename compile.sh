@@ -33,7 +33,6 @@ $(dirname $0)/emitters/ensure_docker_running.sh
 
 $(dirname $0)/emitters/ssh_password_authentication.sh
 
-$(dirname $0)/emitters/apt-metrics.sh
 $(dirname $0)/emitters/fail2ban.sh
 $(dirname $0)/emitters/updatedb.sh
 
